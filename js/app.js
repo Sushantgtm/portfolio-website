@@ -10,23 +10,7 @@ const finishIntro = () => {
     window.setTimeout(() => introScreen.remove(), prefersReducedMotion ? 0 : 800);
 };
 
-let hasSeenIntro = false;
-try {
-    hasSeenIntro = sessionStorage.getItem("sushant-intro-seen") === "true";
-} catch (error) {
-    hasSeenIntro = false;
-}
-
-if (hasSeenIntro || prefersReducedMotion) {
-    finishIntro();
-} else {
-    try {
-        sessionStorage.setItem("sushant-intro-seen", "true");
-    } catch (error) {
-        // The intro still completes when session storage is unavailable.
-    }
-    window.setTimeout(finishIntro, 2000);
-}
+window.setTimeout(finishIntro, 2000);
 
 menuToggle.addEventListener("click", () => {
     const isOpen = navLinks.classList.toggle("open");

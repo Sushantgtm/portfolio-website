@@ -43,12 +43,16 @@ if ("IntersectionObserver" in window) {
     const observer = new IntersectionObserver((entries, currentObserver) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
+                entry.target.style.setProperty("--reveal-delay", `${entry.target.dataset.revealIndex || 0}ms`);
                 entry.target.classList.add("visible");
                 currentObserver.unobserve(entry.target);
             }
         });
     }, { threshold: 0.12 });
-    revealItems.forEach((item) => observer.observe(item));
+    revealItems.forEach((item, index) => {
+        item.dataset.revealIndex = String((index % 4) * 90);
+        observer.observe(item);
+    });
 } else {
     revealItems.forEach((item) => item.classList.add("visible"));
 }
